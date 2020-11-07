@@ -1,4 +1,10 @@
+import random
+from dotenv import load_dotenv
+import os
+from tabulate import tabulate
 from math import sqrt
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
 
 
 class Pattern:
