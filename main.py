@@ -44,7 +44,7 @@ class Network:
         self.train_dataset = train_dataset
         self.letters = self.get_letters()
         self.input_neurons = self.dataset_to_inputs(self.train_dataset)
-        self.layers = self.init_layers()
+        self.layer = self.init_layer()
 
     def get_letters(self):
         letters = []
@@ -56,12 +56,11 @@ class Network:
         for test in test_dataset.patterns:
             input_neuron = InputNeron(test.value)
             self.input_neurons = [input_neuron]
-            for layer in self.layers:
-                print(f'Letter {test.letter}')
-                outputs = self.evaluate_layer(layer)
-                best_confidence = max(outputs)
-                best_letter = self.letters[outputs.index(best_confidence)]
-                print(f'network has recognized letter {best_letter} with level of confidence = {round(best_confidence, 2)}')
+            print(f'Letter {test.letter}')
+            outputs = self.evaluate_layer(self.layer)
+            best_confidence = max(outputs)
+            best_letter = self.letters[outputs.index(best_confidence)]
+            print(f'network has recognized letter {best_letter} with level of confidence = {round(best_confidence, 2)}')
 
     def evaluate_layer(self, layer):
         outputs = []
@@ -72,12 +71,12 @@ class Network:
                 outputs.append(output)
         return outputs
 
-    def init_layers(self):
+    def init_layer(self):
         layer = []
         for input in range(len(self.input_neurons)):
             weights = self.input_neurons[input].inputs.value
             layer.append(Neuron(weights))
-        return [layer]
+        return layer
 
     def dataset_to_inputs(self, dataset):
         input_neurons = []
