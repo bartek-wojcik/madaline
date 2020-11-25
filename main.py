@@ -65,9 +65,9 @@ class Network:
     def evaluate_layer(self, layer):
         outputs = []
         for input in self.input_neurons:
-            for neuron in layer:
+            for index, neuron in enumerate(layer):
                 output = neuron.compute_output(input.inputs)
-                print(output)
+                print(f'Confidence of letter {self.letters[index]}: {output}')
                 outputs.append(output)
         return outputs
 
@@ -105,7 +105,7 @@ class Neuron:
         return value
 
 
-train_dataset = Dataset('train.txt')
-test_dataset = Dataset('test.txt')
+train_dataset = Dataset('train1.txt')
+test_dataset = Dataset('test1.txt')
 network = Network(train_dataset)
 network.test(test_dataset)
